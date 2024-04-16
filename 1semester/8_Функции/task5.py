@@ -4,23 +4,34 @@
 # наименование всех принимаемых ею параметров и их типы (позиционные, ключевые и т.п.).
 # Попробуйте повторить результат девушки.
 
-import inspect
+import inspect  # импортируем модуль для изучения python объектов
 
 
 def inspect_function(func):
+    # находим имя переданной функции
     func_name = func.__name__
+    # получаем список параметров функции
     func_params = inspect.signature(func).parameters
+    # выводим название функции в консоль
     print(f"Название функции: {func_name}")
-    for param_name, param in func_params.items():
+    for param_name, param in func_params.items():  # проходим по всем аргументам функции
+
+        # Если у параметра задан тип, то выводим его.
+        # Если у параметра не задан тип, то выводим "Не указан"
         param_type = param.annotation if param.annotation != inspect.Parameter.empty else "Не указан"
+
+        # Находим категорию параметра (является ли он позиционным или ключевым, строго ключевым)
         param_kind = param.kind.name
+
+        # Выводим имя параметра, тип параметра и категорию параметра
         print(f"Параметр: {param_name}, Тип: {
               param_type}, Категория: {param_kind}")
+
+
 # Пример функции для анализа
-
-
 def example_function(var1: int, var2: str, *, var3: float = 0.0):
     pass
 
 
+# Вызываем функцию, проводящую анализ функции example_function
 inspect_function(example_function)
