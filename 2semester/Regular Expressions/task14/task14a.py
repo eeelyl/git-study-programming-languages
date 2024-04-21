@@ -1,7 +1,9 @@
 import re
 
+
 def split_by_uppercase(text):
     return re.findall(r'[A-Z][^A-Z]*', text)
+
 
 # Пример использования:
 text = "SplitThisStringByUppercaseLetters"

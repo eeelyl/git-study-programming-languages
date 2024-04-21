@@ -1,8 +1,10 @@
 import re
 
+
 def two_words_start_with_P(words):
     p_words = [word for word in words if re.match(r'^P', word)]
     return len(p_words) >= 2
+
 
 # Пример использования:
 word_list = ['Python', 'Perl', 'Java', 'PHP', 'C++']

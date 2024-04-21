@@ -1,7 +1,9 @@
 import re
 
+
 def remove_words_by_length(text, length):
     return re.sub(r'\b\w{1,' + str(length) + r'}\b', '', text)
+
 
 # Пример использования:
 text = "This is a sentence with some short and long words"

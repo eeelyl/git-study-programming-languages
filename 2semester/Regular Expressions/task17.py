@@ -1,7 +1,9 @@
 import re
 
+
 def merge_consecutive_numbers(text):
     return re.sub(r'(\b\d+)\s+(\d+\b)', lambda match: match.group(1) + match.group(2), text)
+
 
 # Пример использования:
 text = "Введите на 1 20 Kearny Street. Служба безопасности может направить вас на этаж 1 6. Пожалуйста, подготовьте удостоверение личности."

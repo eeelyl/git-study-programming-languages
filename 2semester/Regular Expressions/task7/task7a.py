@@ -6,6 +6,7 @@ def find_substring(text, substring):
         index = text.find(substring, index + 1)
     return positions
 
+
 # Пример использования:
 text = "This is a sample text with sample substring."
 substring = "sample"

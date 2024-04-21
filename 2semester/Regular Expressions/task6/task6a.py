@@ -1,11 +1,13 @@
 import re
 
+
 def find_literal_string(text, pattern):
     matches = re.finditer(pattern, text)
     positions = []
     for match in matches:
         positions.append(match.start())
     return positions
+
 
 # Пример использования:
 text = 'The quick brown fox jumps over the lazy dog.'

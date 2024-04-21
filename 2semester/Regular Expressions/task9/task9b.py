@@ -5,6 +5,7 @@ def convert_date_format(date):
     else:
         return None
 
+
 # Пример использования:
 date = "2016-09-02"
 converted_date = convert_date_format(date)

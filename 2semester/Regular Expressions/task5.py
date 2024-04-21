@@ -1,5 +1,6 @@
 import re
 
+
 def find_substrings(text, substrings):
     found = {}
     for substring in substrings:
@@ -7,6 +8,7 @@ def find_substrings(text, substrings):
         match = re.search(pattern, text)
         found[substring] = match is not None
     return found
+
 
 # Пример использования:
 text = "Fast brown fox leaps over lazy dog"

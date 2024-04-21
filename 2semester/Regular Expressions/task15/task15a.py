@@ -1,7 +1,9 @@
 import re
 
+
 def insert_spaces_before_capitalized_words(text):
     return re.sub(r'(?<!^)(?=[A-Z])', ' ', text)
+
 
 # Пример использования:
 text = "ThisIsACamelCaseString"

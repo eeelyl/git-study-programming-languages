@@ -1,11 +1,13 @@
 import re
 
+
 def match_pattern_e(input_string):
     pattern = r'.*b$'
     if re.match(pattern, input_string):
         return True
     else:
         return False
+
 
 # Пример использования:
 input_string = "somethingb"

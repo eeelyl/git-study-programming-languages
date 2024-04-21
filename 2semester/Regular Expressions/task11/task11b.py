@@ -5,6 +5,7 @@ def snake_to_camel_case(text):
     camel_case_text = ''.join(words)
     return camel_case_text
 
+
 # Пример использования:
 text = "btw... -what- * -do * -you-call-that-naming-style? -snake-case?"
 camel_case_text = snake_to_camel_case(text)

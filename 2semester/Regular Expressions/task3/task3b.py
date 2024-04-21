@@ -1,5 +1,6 @@
 import re
 
+
 def extract_word_at_end(input_string):
     pattern = r'\b\w+\b[.,;:]*$'
     match = re.search(pattern, input_string)
@@ -7,6 +8,7 @@ def extract_word_at_end(input_string):
         return match.group()
     else:
         return None
+
 
 # Пример использования:
 input_string = "Hello world."

@@ -1,8 +1,10 @@
 import re
 
+
 def is_decimal_with_two_decimal_places(string):
     pattern = r'^\d+(\.\d{1,2})?$'
     return bool(re.match(pattern, string))
+
 
 # Пример использования:
 number1 = "123.45"
