@@ -21,4 +21,4 @@ def print_content(directory):
 
 
 # Пример использования функции
-print_content('path')
+print_content(r'C:\Users\chel\Documents\code\git-study-programming-languages')
