@@ -2,7 +2,7 @@ import re
 
 
 def merge_consecutive_numbers(text):
-    return re.sub(r'(\b\d+)\s+(\d+\b)', lambda match: match.group(1) + match.group(2), text)
+    return re.sub(r'(\b\d+)\s+(\d+\b)', r'\1\2', text)
 
 
 # Пример использования:

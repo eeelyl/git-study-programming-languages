@@ -1,11 +1,10 @@
 import re
 
-def snake_to_camel_case(string):
-    # Используем регулярное выражение для поиска слов, разделенных символом подчеркивания
-    words = re.split(r'_', string)
-    # Каждое слово кроме первого, преобразуем первую букву в заглавную
-    camel_case = ''.join([words[0]] + [word.capitalize() for word in words[1:]])
+
+def snake_to_camel_case(snake_case):
+    camel_case = re.sub(r'_([a-z])', lambda match: match.group(1).upper(), snake_case)
     return camel_case
+
 
 # Пример использования
 snake_string = "btw_what_do_you_call_that_naming_style"
