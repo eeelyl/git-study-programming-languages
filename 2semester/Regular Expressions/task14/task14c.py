@@ -1,3 +1,6 @@
+import re
+
+
 def split_by_multiple_delimiters(text, delimiters):
     pattern = '|'.join(map(re.escape, delimiters))
     return re.split(pattern, text)
