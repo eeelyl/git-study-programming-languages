@@ -16,6 +16,11 @@ class Transaction:
         self.bank = bank
         bank.transactions.append(self)
 
+# В идеале в Bank должен быть словарь, который как ключ принимает имя аккаунта
+# а значение будет его счетом
+# тогда будет пиздатая инкапсуляция
+# TODO!
+
 
 class Bank:
     def __init__(self, name):
