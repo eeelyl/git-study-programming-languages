@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
-        "cumsum"
-    ]
+        "cumsum",
+        "sber"
+    ],
+    "python.REPL.enableREPLSmartSend": false
 }
