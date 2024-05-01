@@ -1,12 +1,12 @@
-def snake_to_camel_case(text):
-    # Разбиваем строку по подчеркиваниям, преобразуем первую букву каждого слова в заглавную
-    words = [word.capitalize() for word in text.split('_')]
-    # Объединяем слова и убираем пробелы
-    camel_case_text = ''.join(words)
-    return camel_case_text
+import re
 
 
-# Пример использования:
-text = "btw... -what- * -do * -you-call-that-naming-style? -snake-case?"
-camel_case_text = snake_to_camel_case(text)
-print("Результат преобразования в camel-case:", camel_case_text)
+def snake_to_camel_case(snake_case):
+    camel_case = re.sub(r'_([a-z])', lambda match: match.group(1).upper(), snake_case)
+    return camel_case
+
+
+# Пример использования
+snake_string = "btw_what_do_you_call_that_naming_style"
+camel_string = snake_to_camel_case(snake_string)
+print(camel_string)
