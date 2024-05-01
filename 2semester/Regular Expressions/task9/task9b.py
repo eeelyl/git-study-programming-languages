@@ -1,7 +1,10 @@
-import re
-
 def convert_date_format(date):
-    return re.sub(r'(\d{4})-(\d{1,2})-(\d{1,2})', '\\3-\\2-\\1', date)
+    parts = date.split('-')
+    if len(parts) == 3:
+        return f"{parts[2]}-{parts[1]}-{parts[0]}"
+    else:
+        return None
+
 
 # Пример использования:
 date = "2016-09-02"
