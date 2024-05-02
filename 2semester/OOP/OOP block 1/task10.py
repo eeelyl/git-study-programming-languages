@@ -1,74 +1,78 @@
-class Account:
-    def __init__(self, bank, name, total=0):
-        self.name = name
-        self.total = total
-        self.bank = bank
-
-    def __str__(self):
-        return '{} : {}'.format(self.name, self.total)
-
-
 class Transaction:
-    def __init__(self, bank,  sender, receiver, amount):
+    def __init__(self, sender, receiver, amount):
         self.sender = sender
         self.receiver = receiver
         self.amount = amount
-        self.bank = bank
-        bank.transactions.append(self)
 
-# В идеале в Bank должен быть словарь, который как ключ принимает имя аккаунта
-# а значение будет его счетом
-# тогда будет пиздатая инкапсуляция
-# TODO!
+    def __repr__(self):
+        return "Transaction('{}', '{}', {})".format(self.sender, self.receiver, self.amount)
+
+    def __str__(self):
+        return '{} --> {} : {}'.format(self.sender, self.receiver, self.amount)
 
 
 class Bank:
     def __init__(self, name):
         self.name = name
-        self.accounts = []
+        self.accounts = {}
         self.transactions = []
 
     def add_account(self, *accounts):
-        self.accounts.extend(accounts)
-
-    def remove_account(self, *accounts):
-        for account in accounts:
-            if account in self.accounts:
-                self.accounts.remove(account)
+        for acc in accounts:
+            if acc not in self.accounts.keys():
+                self.accounts[acc] = 0
 
     def add_transaction(self, *transactions):
-        self.transactions.extend(transactions)
         for tr in transactions:
-            if tr.bank == self:
-                if tr.sender.bank != self or tr.receiver.bank != self:
-                    if tr.sender.total - tr.amount >= 0 and tr.receiver.total + tr.amount >= 0:
-                        tr.sender.total -= tr.amount
-                        tr.receiver.total += tr.amount
-                    else:
-                        print(
-                            'Транзакция {} --> {} : {} не прошла. Недостаточно средств'.format(tr.sender, tr.receiver, tr.amount))
+            if tr.sender in self.accounts.keys() and tr.receiver in self.accounts.keys():
+                if self.accounts[tr.sender] - tr.amount >= 0:
+                    self.transactions.append(tr)
+                    self.accounts[tr.sender] -= tr.amount
+                    self.accounts[tr.receiver] += tr.amount
                 else:
-                    print('Клиент не принадлежит этому банку')
+                    print(f'Недостаточно средств на счете {tr.sender}')
             else:
-                print('Транзакция не принадлежит этому банку')
+                print('Не являются клиентами банка')
 
     def remove_transaction(self, *transactions):
         for tr in transactions:
-            if tr in self.transactions:
+            if tr in self.transactions and self.accounts[tr.receiver] - tr.amount >= 0:
+                self.accounts[tr.sender] += tr.amount
+                self.accounts[tr.receiver] -= tr.amount
                 self.transactions.remove(tr)
 
-    def __str__(self):
-        res = f'Bank name: {self.name}\nAccounts:\n'
-        for account in self.accounts:
-            res += account.__str__() + '\n'
-        return res
+    def deposit(self, account, amount):
+        self.accounts[account] += amount
+
+    def withdraw(self, account, amount):
+        if self.accounts[account] - amount >= 0:
+            self.accounts[account] -= amount
+        else:
+            print(f'Недостаточно средств на счете {account}')
+
+    def print_transactions(self):
+        print(self.transactions)
+
+    def print_accounts(self):
+        print(self.accounts)
+
+    def print_all(self):
+        print(f'Bank: {self.name}')
+        print('_'*10)
+        print('Accounts:')
+        self.print_accounts()
+        print('Transactions:')
+        self.print_transactions()
 
 
 sber = Bank('sber')
-account_Alex = Account(sber, 'Alex', 5000)
-account_San = Account(sber, 'San', 3000)
-sber.add_account(account_Alex, account_San)
-sber.add_transaction(Transaction(sber, account_Alex, account_Alex, 5000))
-print(sber)
-sber.add_transaction(Transaction(sber, account_Alex, account_San, -3000))
-print(sber)
+sber.add_account('Van')
+sber.add_account('Joe')
+sber.print_all()
+sber.deposit('Van', 5000)
+sber.print_all()
+tr1 = Transaction('Van', 'Joe', 3000)
+sber.add_transaction(tr1)
+sber.print_all()
+sber.remove_transaction(tr1)
+sber.print_all()
