@@ -1,16 +1,18 @@
-def sort1(s):
-    res = [int(num) for num in s.split()]
-    res.sort(key=lambda x: (x < 0, x))
-    return res
+from functools import cmp_to_key
 
 
-def sort2(s):
-    res = [int(num) for num in s.split()]
-    res.sort()
-    return res
+def compare_numbers(x, y):
+    x, y = int(x), int(y)
+    if x >= 0 and y >= 0:
+        return x - y
+    elif x < 0 and y < 0:
+        return x - y
+    elif x >= 0:
+        return -1
+    else:
+        return 1
 
 
-inp = '6 -1 3 -5 -15 4 1 9 8 6 -3 -4 12 -10 7'
-
-print(sort1(inp))
-print(sort2(inp))
+numbers = '6 -1 3 -5 -15 4 1 9 8 6 -3 -4 12 -10 7'.split()
+sorted_numbers = sorted(numbers, key=cmp_to_key(compare_numbers))
+print(' '.join(sorted_numbers))
