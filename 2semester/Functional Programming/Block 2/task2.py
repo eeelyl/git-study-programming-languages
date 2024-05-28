@@ -5,17 +5,14 @@ def is_valid_move(x, y, board, n):
 
 def knight_tour_generator(n):
     """Generator to solve the Knight's Tour problem."""
-    # Possible moves for a knight
     move_x = [2, 1, -1, -2, -2, -1, 1, 2]
     move_y = [1, 2, 2, 1, -1, -2, -2, -1]
 
-    # Initialize board with -1
     board = [[-1 for _ in range(n)] for _ in range(n)]
 
-    # Start position
     x, y = 0, 0
-    board[x][y] = 0  # First move
-    yield (x, y, board)  # Yield initial position
+    board[x][y] = 0
+    yield (x, y, board)
 
     def solve_knight_tour(x, y, move_count):
         """Utility function to solve the Knight's Tour problem."""
@@ -29,7 +26,6 @@ def knight_tour_generator(n):
                 yield (next_x, next_y, board)
                 if (yield from solve_knight_tour(next_x, next_y, move_count + 1)):
                     return True
-                # Backtrack
                 board[next_x][next_y] = -1
 
         return False
@@ -37,8 +33,7 @@ def knight_tour_generator(n):
     yield from solve_knight_tour(x, y, 1)
 
 
-# Пример использования
-n = 5  # Размер доски
+n = 5
 generator = knight_tour_generator(n)
 
 for move in generator:

@@ -1,21 +1,20 @@
 def zero(s):
-    if s[0] == "0":
+    if s and s[0] == "0":
         return s[1:]
 
 
 def one(s):
-    if s[0] == "1":
+    if s and s[0] == "1":
         return s[1:]
 
 
 def rule_sequence(s, rules):
-    for rule in rules:
-        result = rule(s)
-        if result is not None:
-            s = result
-        else:
-            return None
-    return result
+    if not rules:
+        return s
+    result = rules[0](s)
+    if result is None:
+        return None
+    return rule_sequence(result, rules[1:])
 
 
 print(rule_sequence('0101', [zero, one, zero]))

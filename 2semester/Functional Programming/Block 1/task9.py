@@ -22,8 +22,8 @@ def power_recursive(n, m):
 
 
 # Сравнение скорости выполнения обоих решений
-n = 5
-m = 100
+n = 2
+m = 10000
 
 start_time = time.time()
 result_iterative = power_iterative(n, m)

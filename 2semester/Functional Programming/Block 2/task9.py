@@ -12,12 +12,9 @@ def my_enumerate(iterable, start=0):
 
 
 def main():
-    # Получаем список слов от пользователя
     words = input("Введите список слов, разделенных пробелами: ").split()
-    # Получаем букву от пользователя
     letter = input("Введите букву: ").strip().lower()
 
-    # Используем my_filter для фильтрации слов, начинающихся с заданной буквы
     filtered_words = my_filter(
         lambda word: word.lower().startswith(letter), words)
 

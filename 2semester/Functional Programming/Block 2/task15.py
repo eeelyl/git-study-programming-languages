@@ -1,4 +1,5 @@
-import asyncio
+# TODO
+# Решить без asyncio
 
 # Исходные данные
 data = [{'name': 'wonderful sunset on the volga', 'country': 'UK', 'active_state': False},
@@ -6,62 +7,44 @@ data = [{'name': 'wonderful sunset on the volga', 'country': 'UK', 'active_state
             'country': 'Germany', 'active_state': False},
         {'name': 'good rain in Vladivostok.', 'country': 'Spain', 'active_state': True}]
 
-# Корутин для установки страны
+# Функция для установки новой страны
 
 
-async def set_new_country(next_coroutine):
-    while True:
-        band = await next_coroutine()
-        band['country'] = 'Russia'
-        await next_coroutine.send(band)
+def set_new_country(band):
+    band['country'] = 'Russia'
+    return band
 
-# Корутин для исправления имени
+# Функция для исправления имени
 
 
-async def correct_name(next_coroutine):
-    while True:
-        band = await next_coroutine()
-        band['name'] = band['name'].replace('.', '').title()
-        await next_coroutine.send(band)
+def correct_name(band):
+    band['name'] = band['name'].replace('.', '').title()
+    return band
 
-# Корутин для переключения активного состояния
+# Функция для переключения активного состояния
 
 
-async def toggle_active_state(next_coroutine):
-    while True:
-        band = await next_coroutine()
-        band['active_state'] = not band['active_state']
-        await next_coroutine.send(band)
+def toggle_active_state(band):
+    band['active_state'] = not band['active_state']
+    return band
 
-# Конечная корутина
+# Функция pipeline для обработки данных
 
 
-async def final_coroutine():
-    while True:
-        band = await asyncio.Future()
-        return band
+def pipeline(data, *functions):
+    for func in functions:
+        data = list(map(func, data))
+    return data
 
-# Корутин pipeline для обработки данных
-
-
-async def pipeline(data, *coroutines):
-    # Запуск всех корутин и связывание их вместе
-    next_coroutine = final_coroutine()
-    for coroutine in reversed(coroutines):
-        next_coroutine = coroutine(next_coroutine)
-
-    # Передача данных в цепочку корутин
-    for band in data:
-        await next_coroutine.send(band)
-
-# Основная функция для запуска корутина pipeline
+# Основная функция для запуска pipeline
 
 
-async def main(data):
-    await pipeline(data, set_new_country, correct_name, toggle_active_state)
+def main(data):
+    return pipeline(data, set_new_country, correct_name, toggle_active_state)
 
-# Запуск основного корутина
-asyncio.run(main(data))
+
+# Запуск основного конвейера
+data = main(data)
 
 # Вывод результата
 print(data)

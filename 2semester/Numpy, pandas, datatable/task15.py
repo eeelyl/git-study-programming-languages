@@ -28,7 +28,7 @@ print("\nNumPy array:")
 print(arr_np[:5])
 
 print("\nСловарь:")
-print(dict_data[:5])
+print(dict_data)
 
 print("\nСписок:")
 print(list_data[:5])

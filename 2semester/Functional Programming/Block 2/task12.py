@@ -1,65 +1,59 @@
 import time
-import psutil
-import functools
+import tracemalloc
 
 
-def measure_performance(func):
-    @functools.wraps(func)
+def performance_decorator(func):
     def wrapper(*args, **kwargs):
+        # Начало измерения времени
         start_time = time.time()
-        start_mem = psutil.virtual_memory().used
+
+        # Начало измерения памяти
+        tracemalloc.start()
+
         result = func(*args, **kwargs)
+
+        # Завершение измерения памяти
+        current, peak = tracemalloc.get_traced_memory()
+        tracemalloc.stop()
+
+        # Завершение измерения времени
         end_time = time.time()
-        end_mem = psutil.virtual_memory().used
+        elapsed_time = end_time - start_time
+
         print(f"Название функции: {func.__name__}")
-        print(f"Использованный метод: {func.__doc__}")
-        print(
-            f"Текущее потребление памяти: {(end_mem - start_mem) / (1024 * 1024):.6f} мб")
-        print(
-            f"Пик использования памяти: {psutil.virtual_memory().max / (1024 * 1024):.6f} мб")
-        print(f"Операция заняла: {end_time - start_time:.6f} секунд")
+        print(f"Текущее потребление памяти: {current / 10**6:.6f} мб")
+        print(f"Пик использования памяти: {peak / 10**6:.6f} мб")
+        print(f"Операция заняла: {elapsed_time:.6f} секунд")
         print(f"Функция {func.__name__} завершила работу")
-        print("------------------------------------------------")
+        print("-" * 48)
+
         return result
+
     return wrapper
 
 
-@measure_performance
+@performance_decorator
 def make_list_with_range():
-    """
-    range()
-    """
-    return list(range(1000000))
+    res = list(range(1000000))
 
 
-@measure_performance
+@performance_decorator
 def make_list_comprehension():
-    """
-    list comprehension
-    """
-    return [i for i in range(1000000)]
+    res = [i for i in range(1000000)]
 
 
-@measure_performance
+@performance_decorator
 def make_list_with_append():
-    """
-    append()
-    """
-    lst = []
+    res = []
     for i in range(1000000):
-        lst.append(i)
-    return lst
+        res.append(i)
 
 
-@measure_performance
+@performance_decorator
 def make_list_concatenation():
-    """
-    concatenation
-    """
-    lst = []
-    for i in range(1000000):
-        lst += [i]
-    return lst
+    res = []
+    for i in range(100000):
+        res += [i]
 
 
 print(make_list_with_range())

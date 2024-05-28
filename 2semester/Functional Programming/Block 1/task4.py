@@ -1,18 +1,19 @@
-from functools import cmp_to_key
+from functools import reduce
 
+input_string = "6 -1 3 -5 -15 4 1 9 8 6 -3 -4 12 -10 7"
 
-def compare_numbers(x, y):
-    x, y = int(x), int(y)
-    if x >= 0 and y >= 0:
-        return x - y
-    elif x < 0 and y < 0:
-        return x - y
-    elif x >= 0:
-        return -1
-    else:
-        return 1
+numbers = list(map(int, input_string.split()))
 
+positive_numbers = list(filter(lambda x: x > 0, numbers))
 
-numbers = '6 -1 3 -5 -15 4 1 9 8 6 -3 -4 12 -10 7'.split()
-sorted_numbers = sorted(numbers, key=cmp_to_key(compare_numbers))
-print(' '.join(sorted_numbers))
+negative_numbers = list(filter(lambda x: x < 0, numbers))
+
+sorted_positive_numbers = sorted(positive_numbers)
+
+sorted_negative_numbers = sorted(negative_numbers)
+
+sorted_numbers = sorted_positive_numbers + sorted_negative_numbers
+
+output_string = ' '.join(map(str, sorted_numbers))
+
+print(output_string)

@@ -20,6 +20,8 @@ def higher_order_function(numbers):
 
 
 def main():
+    # 8 9 3 5 1 3 8 2 9
+    # 7 3 2 8 9 1 2 3 4 6
     input_str = input("Введите список чисел, разделенных пробелами: ")
     numbers = list(map(int, input_str.split()))
 
