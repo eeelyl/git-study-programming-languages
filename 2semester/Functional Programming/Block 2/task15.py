@@ -1,6 +1,3 @@
-# TODO
-# Решить без asyncio
-
 # Исходные данные
 data = [{'name': 'wonderful sunset on the volga', 'country': 'UK', 'active_state': False},
         {'name': 'fantastic sunrise in .crimea. ',
